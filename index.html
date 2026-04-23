@@ -308,7 +308,7 @@
 
         <div class="tagline">Hair. Color. Care. All in one chair.</div>
 
-        <div class="bio">Full-service hair salon on Benton Blvd serving Northeast Kansas City in English and Spanish. Cuts, color, balayage, extensions, barber, waxing, and nails. Owner Angeles Chavez-Cano has been doing hair here for over 10 years. Everyone welcome.</div>
+        <div class="bio">Full-service hair salon on Benton Blvd serving Kansas City in English and Spanish. Cuts, color, balayage, extensions, barber, waxing, and nails. Owner Angeles Chavez-Cano has been doing hair here for over 10 years. Everyone welcome.</div>
 
         <div class="contact-links">
             <a href="tel:+18163795845" class="contact-link">
@@ -363,7 +363,7 @@
             const _officeAddr = `540 Benton Blvd, Kansas City, MO, 64124`;
             const _website = ``;
             const _tagline = `Hair. Color. Care. All in one chair.`;
-            const _bio = `Full-service hair salon on Benton Blvd serving Northeast Kansas City in English and Spanish. Cuts, color, balayage, extensions, barber, waxing, and nails. Owner Angeles Chavez-Cano has been doing hair here for over 10 years. Everyone welcome.`;
+            const _bio = `Full-service hair salon on Benton Blvd serving Kansas City in English and Spanish. Cuts, color, balayage, extensions, barber, waxing, and nails. Owner Angeles Chavez-Cano has been doing hair here for over 10 years. Everyone welcome.`;
             const _ap = _officeAddr ? _officeAddr.split(',').map(s => s.trim()) : [];
             const _adrLine = _officeAddr
                 ? `ADR;TYPE=WORK:;;${_ap[0] || ''};${_ap[1] || ''};${_ap[2] || ''};${_ap[3] || ''};USA`
@@ -371,20 +371,20 @@
             const _noteStr = [_tagline, _bio].filter(Boolean).join(' | ');
 
             const vcard = [
-                'BEGIN:VCARD',
-                'VERSION:3.0',
-                'N:Chavez-Cano;Angeles;;;',
-                'FN:Angeles Chavez-Cano',
-                'ORG:D'Angeles Beauty SALON',
-                'TITLE:Owner',
-                'TEL;TYPE=CELL:(816) 379-5845',
+                `BEGIN:VCARD`,
+                `VERSION:3.0`,
+                `N:Chavez-Cano;Angeles;;;`,
+                `FN:Angeles Chavez-Cano`,
+                `ORG:D'Angeles Beauty SALON`,
+                `TITLE:Owner`,
+                `TEL;TYPE=CELL:(816) 379-5845`,
                 _officePhone ? `TEL;TYPE=WORK:${_officePhone}` : '',
-                'EMAIL;TYPE=WORK:dangelesbeauty.salon@gmail.com',
+                `EMAIL;TYPE=WORK:dangelesbeauty.salon@gmail.com`,
                 _website ? `URL:${_website}` : '',
                 _adrLine,
                 _noteStr ? `NOTE:${_noteStr}` : '',
                 _photoB64 ? `PHOTO;ENCODING=b;TYPE=JPEG:${_photoB64}` : '',
-                'END:VCARD'
+                `END:VCARD`
             ].filter(Boolean).join('\r\n');
 
             const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
