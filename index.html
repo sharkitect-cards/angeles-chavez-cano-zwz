@@ -191,7 +191,7 @@
             margin-bottom: 24px;
         }
 
-        .save-btn, .qr-btn {
+        .save-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -208,7 +208,7 @@
         }
 
         .save-btn {
-            flex: 1;
+            width: 100%;
             background: var(--accent);
             color: var(--text-primary);
         }
@@ -219,21 +219,10 @@
             box-shadow: 0 4px 20px rgba(var(--accent-rgb), 0.3);
         }
 
-        .qr-btn {
-            background: rgba(var(--accent-rgb), 0.1);
-            color: var(--accent);
-            border: 1px solid rgba(var(--accent-rgb), 0.2);
-            padding: 14px 18px;
-        }
 
-        .qr-btn:hover {
-            background: rgba(var(--accent-rgb), 0.18);
-            transform: translateY(-1px);
-        }
 
-        .save-btn:active, .qr-btn:active { transform: translateY(0); }
+        .save-btn:active { transform: translateY(0); }
         .save-btn svg { width: 18px; height: 18px; fill: var(--text-primary); }
-        .qr-btn svg { width: 18px; height: 18px; fill: var(--accent); }
 
         /* QR Code overlay */
         .qr-overlay {
@@ -332,14 +321,12 @@
             
         </div>
 
+        <!-- CARD STANDARD: exactly ONE button, and it opens the QR.
+             Do NOT reintroduce a "Save Contact" button or a direct .vcf link. -->
         <div class="btn-row">
-            <button class="save-btn" onclick="saveContact()">
-                <svg viewBox="0 0 24 24"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2v9.67z"/></svg>
-                Save Contact
-            </button>
-            <button class="qr-btn" onclick="toggleQR()">
+            <button class="save-btn" onclick="toggleQR()">
                 <svg viewBox="0 0 24 24"><path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3zm-3 8v-2h-2v2h2zm4 0v-2h-2v2h2z"/></svg>
-                QR
+                Save My Contact
             </button>
         </div>
 
@@ -357,46 +344,7 @@
     </div>
 
     <script>
-        function saveContact() {
-            const _officePhone = ``;
-            const _photoB64 = ``;  // optional headshot JPEG, base64 only (no data: prefix). Empty string omits vCard PHOTO.
-            const _officeAddr = `540 Benton Blvd, Kansas City, MO, 64124`;
-            const _website = ``;
-            const _tagline = `Hair. Color. Care. All in one chair.`;
-            const _bio = `Full-service hair salon on Benton Blvd serving Kansas City in English and Spanish. Cuts, color, balayage, extensions, barber, waxing, and nails. Owner Angeles Chavez-Cano has been doing hair here for over 10 years. Everyone welcome.`;
-            const _ap = _officeAddr ? _officeAddr.split(',').map(s => s.trim()) : [];
-            const _adrLine = _officeAddr
-                ? `ADR;TYPE=WORK:;;${_ap[0] || ''};${_ap[1] || ''};${_ap[2] || ''};${_ap[3] || ''};USA`
-                : '';
-            const _noteStr = [_tagline, _bio].filter(Boolean).join(' | ');
-
-            const vcard = [
-                `BEGIN:VCARD`,
-                `VERSION:3.0`,
-                `N:Chavez-Cano;Angeles;;;`,
-                `FN:Angeles Chavez-Cano`,
-                `ORG:D'Angeles Beauty SALON`,
-                `TITLE:Owner`,
-                `TEL;TYPE=CELL:(816) 379-5845`,
-                _officePhone ? `TEL;TYPE=WORK:${_officePhone}` : '',
-                `EMAIL;TYPE=WORK:dangelesbeauty.salon@gmail.com`,
-                _website ? `URL:${_website}` : '',
-                _adrLine,
-                _noteStr ? `NOTE:${_noteStr}` : '',
-                _photoB64 ? `PHOTO;ENCODING=b;TYPE=JPEG:${_photoB64}` : '',
-                `END:VCARD`
-            ].filter(Boolean).join('\r\n');
-
-            const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Angeles-Chavez-Cano.vcf';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
+        // saveContact() removed 2026-07-27 - card standard: QR/NFC is the save path.
 
         function toggleQR() {
             document.getElementById('qrOverlay').classList.toggle('active');
